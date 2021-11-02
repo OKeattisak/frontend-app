@@ -20,43 +20,43 @@
           <v-simple-table>
             <template v-slot:default>
               <thead>
-                <tr>
-                  <th>รหัสสินค้า</th>
-                  <th>ชื่อสินค้า</th>
-                  <th>หน่วยนับ</th>
-                  <th>ยอดคงเหลือ</th>
-                  <th colspan="2">Action</th>
-                </tr>
+              <tr>
+                <th>รหัสสินค้า</th>
+                <th>ชื่อสินค้า</th>
+                <th>หน่วยนับ</th>
+                <th>ยอดคงเหลือ</th>
+                <th colspan="2">Action</th>
+              </tr>
               </thead>
               <tbody>
-                <tr v-for="inventory in inventories" :key="inventory.code">
-                  <td>{{ inventory.code }}</td>
-                  <td>{{ inventory.name_1 }}</td>
-                  <td>{{ inventory.unit_standard }}</td>
-                  <td>{{ inventory.balance_qty | adjustdecimal }}</td>
-                  <td>
-                    <v-btn
-                      color="primary"
-                      outlined
-                      small
-                      @click="doSomething(inventory.code)"
-                    >
-                      <v-icon left> mdi-pencil </v-icon>
-                      Edit
-                    </v-btn>
-                  </td>
-                  <td>
-                    <v-btn
-                      color="error"
-                      outlined
-                      small
-                      @click="doSomething(inventory.code)"
-                    >
-                      <v-icon left> mdi-delete </v-icon>
-                      Delete
-                    </v-btn>
-                  </td>
-                </tr>
+              <tr v-for="inventory in inventories" :key="inventory.code">
+                <td>{{ inventory.code }}</td>
+                <td>{{ inventory.name_1 }}</td>
+                <td>{{ inventory.unit_standard }}</td>
+                <td>{{ inventory.balance_qty | adjustdecimal }}</td>
+                <td>
+                  <v-btn
+                    color="primary"
+                    outlined
+                    small
+                    @click="doSomething(inventory.code)"
+                  >
+                    <v-icon left> mdi-pencil</v-icon>
+                    Edit
+                  </v-btn>
+                </td>
+                <td>
+                  <v-btn
+                    color="error"
+                    outlined
+                    small
+                    @click="doSomething(inventory.code)"
+                  >
+                    <v-icon left> mdi-delete</v-icon>
+                    Delete
+                  </v-btn>
+                </td>
+              </tr>
               </tbody>
             </template>
           </v-simple-table>
@@ -74,12 +74,12 @@ import _ from "lodash";
 export default {
   name: "Inventory",
   components: {
-    CardTitle,
+    CardTitle
   },
   data() {
     return {
       inventories: [],
-      keyword: "",
+      keyword: ""
     };
   },
   methods: {
@@ -107,23 +107,23 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
+    }
   },
   watch: {
     keyword: {
-      handler: _.debounce(function () {
+      handler: _.debounce(function() {
         this.searchInventory();
-      }, 1000),
-    },
+      }, 1000)
+    }
   },
   mounted() {
     this.getInventory();
   },
   filters: {
-    adjustdecimal: function (value) {
+    adjustdecimal: function(value) {
       return parseFloat(value).toFixed(2);
-    },
-  },
+    }
+  }
 };
 </script>
 

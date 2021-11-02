@@ -1,15 +1,13 @@
 <template>
-  <hello-world />
+  <div class="Home">
+    <font-awesome-icon icon="fa-solid fa-user-secret" />
+    <font-awesome-icon icon="fa-solid fa-tooth" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
 
 export default {
-  name: "Home",
-
-  components: {
-    HelloWorld,
-  },
+  name: "Home"
 };
 </script>
