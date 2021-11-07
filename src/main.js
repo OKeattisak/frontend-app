@@ -16,7 +16,7 @@ library.add(faUserSecret);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/api";
+axios.defaults.baseURL = "http://localhost:8000/api";
 
 Vue.config.productionTip = false;
 
@@ -25,5 +25,5 @@ new Vue({
   store,
   vuetify,
   axios,
-  render: (h) => h(App),
+  render: (h) => h(App)
 }).$mount("#app");

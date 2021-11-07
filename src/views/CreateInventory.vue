@@ -10,16 +10,17 @@
           <v-card-text>
             <v-row>
               <v-col cols="12" md="3">
-                <v-text-field
+                <v-combobox
+                  v-model="formData.code"
                   dense
                   label="รหัสสินค้า"
                   outlined
-                  required
-                ></v-text-field>
+                  required></v-combobox>
               </v-col>
 
               <v-col cols="12" md="9">
                 <v-text-field
+                  v-model="formData.name_1"
                   dense
                   label="ชื่อสินค้า"
                   outlined
@@ -30,6 +31,7 @@
             <v-row>
               <v-col cols="12" md="3">
                 <v-autocomplete
+                  v-model="formData.unit_type"
                   :items="unitType"
                   dense
                   item-text="name"
@@ -41,6 +43,7 @@
               </v-col>
               <v-col cols="12" md="3">
                 <v-autocomplete
+                  v-model="formData.unit_cost"
                   :items="unit"
                   dense
                   label="หน่วยต้นทุน"
@@ -50,6 +53,7 @@
               </v-col>
               <v-col cols="12" md="3">
                 <v-autocomplete
+                  v-model="formData.unit_standard"
                   :items="unit"
                   dense
                   label="หน่วยยอดคงเหลือ"
@@ -59,6 +63,7 @@
               </v-col>
               <v-col cols="12" md="3">
                 <v-autocomplete
+                  v-model="formData.tax_type"
                   :items="vatType"
                   dense
                   item-text="name"
@@ -74,7 +79,8 @@
               block
               color="teal"
               dark
-              @shortkey="doSomething()"
+              @click="submit()"
+              @shortkey="submit()"
             >
               เพิ่มสินค้า (F12)
             </v-btn>
@@ -94,30 +100,54 @@ export default {
     unitType: [
       {
         id: 0,
-        name: "หน่วยนับเดียว",
+        name: "หน่วยนับเดียว"
       },
       {
         id: 1,
-        name: "หลายหน่วยนับ",
-      },
+        name: "หลายหน่วยนับ"
+      }
     ],
     vatType: [
       {
         id: 0,
-        name: "ภาษีมูลค่าเพิ่ม",
+        name: "ภาษีมูลค่าเพิ่ม"
       },
       {
         id: 1,
-        name: "สินค้ายกเว้นภาษี",
-      },
+        name: "สินค้ายกเว้นภาษี"
+      }
     ],
     unit: [],
     productCodeFormat: [],
     valid: true,
+    formData: {
+      code: "",
+      name_1: "",
+      tax_type: "",
+      unit_type: "",
+      unit_cost: "",
+      unit_standard: ""
+    }
+
+
   }),
   methods: {
     doSomething() {
       console.log(this.unit);
+    },
+    submit() {
+      console.log("Submit");
+      this.valid = true;
+      if (this.valid) {
+        axios
+          .post("inventories", this.formData)
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     },
     async getUnit() {
       await axios
@@ -140,12 +170,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
+    }
   },
   mounted() {
     this.getProductCodeFormat();
     this.getUnit();
-  },
+  }
 };
 </script>
 
