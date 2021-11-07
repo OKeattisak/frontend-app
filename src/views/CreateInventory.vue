@@ -17,6 +17,7 @@
                   required
                 ></v-text-field>
               </v-col>
+
               <v-col cols="12" md="9">
                 <v-text-field
                   dense
@@ -59,9 +60,9 @@
               <v-col cols="12" md="3">
                 <v-autocomplete
                   :items="vatType"
+                  dense
                   item-text="name"
                   item-value="id"
-                  dense
                   label="ประเภทภาษี"
                   outlined
                   required
@@ -93,25 +94,26 @@ export default {
     unitType: [
       {
         id: 0,
-        name: "หน่วยนับเดียว"
+        name: "หน่วยนับเดียว",
       },
       {
         id: 1,
-        name: "หลายหน่วยนับ"
-      }
+        name: "หลายหน่วยนับ",
+      },
     ],
     vatType: [
       {
         id: 0,
-        name: "ภาษ๊มูลค่าเพิ่ม"
+        name: "ภาษีมูลค่าเพิ่ม",
       },
       {
         id: 1,
-        name: "สินค้ายกเว้นภาษี"
-      }
+        name: "สินค้ายกเว้นภาษี",
+      },
     ],
     unit: [],
-    valid: true
+    productCodeFormat: [],
+    valid: true,
   }),
   methods: {
     doSomething() {
@@ -127,11 +129,23 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    }
+    },
+    async getProductCodeFormat() {
+      await axios
+        .get("inventories/productcodeformat")
+        .then((response) => {
+          console.log(response.data);
+          this.productCodeFormat = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
+    this.getProductCodeFormat();
     this.getUnit();
-  }
+  },
 };
 </script>
 
