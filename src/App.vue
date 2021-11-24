@@ -4,7 +4,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title"> Application</v-list-item-title>
-          <v-list-item-subtitle> subtext</v-list-item-subtitle>
+          <v-list-item-subtitle> Version : 0.0.1</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -46,9 +46,9 @@ export default {
     items: [
       { title: "แดชบอร์ด", icon: "mdi-view-dashboard", to: "/" },
       { title: "สินค้า", icon: "mdi-image", to: "/inventories" },
-      { title: "POS", icon: "mdi-cart", to: "/pos" },
-    ],
-  }),
+      { title: "POS", icon: "mdi-cart", to: "/pos" }
+    ]
+  })
 };
 </script>
 
