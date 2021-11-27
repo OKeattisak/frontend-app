@@ -10,14 +10,17 @@
           <v-card-text>
             <v-row>
               <v-col cols="12" md="3">
-                <v-combobox
-                  v-model="formData.code"
-                  dense
-                  label="รหัสสินค้า"
-                  outlined
-                  required></v-combobox>
-              </v-col>
+                <div class="d-flex">
+                  <v-combobox
+                    v-model="formData.code"
+                    dense
+                    label="รหัสสินค้า"
+                    outlined
+                    required
+                  ></v-combobox>
 
+                </div>
+              </v-col>
               <v-col cols="12" md="9">
                 <v-text-field
                   v-model="formData.name_1"
@@ -74,6 +77,31 @@
                 ></v-autocomplete>
               </v-col>
             </v-row>
+
+            <v-simple-table>
+              <template v-slot:default>
+                <thead>
+                <tr>
+                  <th class="text-left">
+                    Name
+                  </th>
+                  <th class="text-left">
+                    Calories
+                  </th>
+                  <th class="text-left">
+                    Calories
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                >
+                  <td>XX</td>
+                  <td>XX</td>
+                </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
             <v-btn
               v-shortkey="['f12']"
               block
@@ -132,6 +160,9 @@ export default {
 
   }),
   methods: {
+    getProductCode() {
+      this.formData.code = "IX-0008";
+    },
     doSomething() {
       console.log(this.unit);
     },
