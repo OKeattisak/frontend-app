@@ -46,7 +46,8 @@ export default {
     items: [
       { title: "แดชบอร์ด", icon: "mdi-view-dashboard", to: "/" },
       { title: "สินค้า", icon: "mdi-image", to: "/inventories" },
-      { title: "POS", icon: "mdi-cart", to: "/pos" }
+      { title: "POS", icon: "mdi-cart", to: "/pos" },
+      { title: "Transaction", icon: "mdi-cart", to: "/transaction" }
     ]
   })
 };
