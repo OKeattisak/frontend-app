@@ -7,11 +7,11 @@ import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-// import VueApexCharts from "vue-apexcharts";
+import VueApexCharts from "vue-apexcharts";
 
-// Vue.use(VueApexCharts);
+Vue.use(VueApexCharts);
 Vue.use(require("vue-shortkey"));
-// Vue.component("apexchart", VueApexCharts);
+Vue.component("apexchart", VueApexCharts);
 library.add(faUserSecret);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
@@ -25,5 +25,5 @@ new Vue({
   store,
   vuetify,
   axios,
-  render: (h) => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

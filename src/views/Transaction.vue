@@ -2,30 +2,25 @@
   <div class="Transaction">
     <v-card>
       <v-col>
-        <v-text-field
-          clearable
-          dense
-          label="ค้นหา"
-          outlined
-        ></v-text-field>
+        <v-text-field clearable dense label="ค้นหา" outlined></v-text-field>
       </v-col>
       <v-simple-table>
         <template v-slot:default>
           <thead>
-          <tr>
-            <th>Trans Flag</th>
-            <th>วันที่เอกสาร</th>
-            <th>เลขที่เอกสาร</th>
-            <th>หมายเหตุ</th>
-          </tr>
+            <tr>
+              <th>Trans Flag</th>
+              <th>วันที่เอกสาร</th>
+              <th>เลขที่เอกสาร</th>
+              <th>หมายเหตุ</th>
+            </tr>
           </thead>
           <tbody>
-          <tr v-for="transaction in transactions" :key="transaction.doc_no">
-            <td>{{ transaction.trans_flag }}</td>
-            <td>{{ transaction.doc_date }}</td>
-            <td>{{ transaction.doc_no }}</td>
-            <td>{{ transaction.remark }}</td>
-          </tr>
+            <tr v-for="transaction in transactions" :key="transaction.doc_no">
+              <td>{{ transaction.trans_flag }}</td>
+              <td>{{ transaction.doc_date }}</td>
+              <td>{{ transaction.doc_no }}</td>
+              <td>{{ transaction.remark }}</td>
+            </tr>
           </tbody>
         </template>
       </v-simple-table>
@@ -40,7 +35,7 @@ export default {
   name: "Transaction",
   data() {
     return {
-      transactions: []
+      transactions: [],
     };
   },
   methods: {
@@ -54,14 +49,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    }
+    },
   },
   mounted() {
     this.getTransaction();
-  }
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

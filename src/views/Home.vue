@@ -1,98 +1,158 @@
 <template>
   <div class="Home">
+    <v-row>
+      <v-col>
+        <v-card class="pa-2" outlined tile>
+          <apexchart
+            type="area"
+            :options="chartOptions"
+            :series="series"
+          ></apexchart>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="pa-2" outlined tile>
+          <apexchart
+            type="bar"
+            :options="chartOptions"
+            :series="series"
+          ></apexchart>
+        </v-card>
+      </v-col>
+    </v-row>
+    <br />
+    <v-row>
+      <v-col>
+        <v-card outlined tile>
+          <v-card-title>สินค้าขายดี</v-card-title>
+          <v-card-text>
+            <v-simple-table>
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th class="text-left">Date</th>
+                    <th class="text-left">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in totalSale" :key="item.name">
+                    <td>{{ item.doc_date }}</td>
+                    <td>{{ item.total_amount }}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>Grand Total</td>
+                    <td>{{ grandTotal | adjustdecimal }}</td>
+                  </tr>
+                </tfoot>
+              </template>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
 
-    <!--    <v-row>-->
-    <!--      <v-col cols="12" md="4">-->
-    <!--        <v-card>-->
-    <!--          <v-card-title>-->
-    <!--            <div class="">ยอดขายสินค้า</div>-->
-    <!--          </v-card-title>-->
-    <!--          <v-card-text align="center">-->
-    <!--            <apexchart-->
-    <!--              :options="options"-->
-    <!--              :series="series"-->
-    <!--              type="area"-->
-    <!--              width="100%"-->
-    <!--            ></apexchart>-->
-    <!--          </v-card-text>-->
-    <!--        </v-card>-->
-    <!--      </v-col>-->
-    <!--      <v-col cols="12" md="4">-->
-    <!--        <v-card>-->
-    <!--          <v-card-title>-->
-    <!--            <div class="">ยอดขายสินค้า</div>-->
-    <!--          </v-card-title>-->
-    <!--          <v-card-text align="center">-->
-    <!--            <apexchart-->
-    <!--              :options="options"-->
-    <!--              :series="series"-->
-    <!--              type="area"-->
-    <!--              width="100%"-->
-    <!--            ></apexchart>-->
-    <!--          </v-card-text>-->
-    <!--        </v-card>-->
-    <!--      </v-col>-->
-    <!--      <v-col cols="12" md="4">-->
-    <!--        <v-card>-->
-    <!--          <v-card-title>-->
-    <!--            <div class="">ยอดขายสินค้า</div>-->
-    <!--          </v-card-title>-->
-    <!--          <v-card-text align="center">-->
-    <!--            <apexchart-->
-    <!--              :options="options"-->
-    <!--              :series="series"-->
-    <!--              type="area"-->
-    <!--              width="100%"-->
-    <!--            ></apexchart>-->
-    <!--          </v-card-text>-->
-    <!--        </v-card>-->
-    <!--      </v-col>-->
-    <!--    </v-row>-->
-
-
+    <br />
+    <!-- <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">Date</th>
+            <th class="text-left">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in totalSale" :key="item.name">
+            <td>{{ item.doc_date }}</td>
+            <td>{{ item.total_amount }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Grand Total</td>
+            <td>{{ grandTotal | adjustdecimal }}</td>
+          </tr>
+        </tfoot>
+      </template>
+    </v-simple-table> -->
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "Home"
-  // data() {
-  //   return {
-  //     options: {
-  //       chart: {
-  //         id: "vuechart-example",
-  //         animations: {
-  //           enabled: true,
-  //           easing: "easeout",
-  //           speed: 500,
-  //           animateGradually: {
-  //             delay: 150
-  //           },
-  //           dynamicAnimation: {
-  //             enabled: true,
-  //             speed: 350
-  //           }
-  //         }
-  //       },
-  //       xaxis: {
-  //         categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-  //       },
-  //       dataLabels: {
-  //         enabled: false
-  //       }
-  //
-  //     },
-  //     series: [
-  //       {
-  //         name: "series-1",
-  //         data: [30, 40, 45, 50, 49, 60, 70, 91]
-  //       },
-  //       {
-  //         name: "series-2",
-  //         data: [20, 45, 60, 80, 30, 50, 90, 78]
-  //       }
-  //     ]
-  //   };
-  // }
+  name: "Home",
+  data() {
+    return {
+      totalSale: [],
+      chartOptions: {
+        title: {
+          text: "ยอดขายสินค้า",
+          align: "left",
+        },
+        chart: {
+          fontFamily: '"Sarabun", sans-serif',
+          toolbar: {
+            show: false,
+          },
+        },
+        xaxis: {
+          categories: [],
+        },
+      },
+      series: [
+        {
+          name: "ยอดขาย",
+          data: [],
+        },
+      ],
+    };
+  },
+  filters: {
+    adjustdecimal: function (value) {
+      return parseFloat(value).toFixed(2);
+    },
+  },
+  computed: {
+    grandTotal: function () {
+      return this.totalSale.reduce((acc, ele) => {
+        return acc + parseFloat(ele.total_amount);
+      }, 0);
+    },
+    totalamount: function () {
+      return;
+    },
+  },
+  methods: {
+    async getTotalSale() {
+      await axios
+        .get("trans/totalsale")
+        .then((response) => {
+          console.log(response.data);
+          this.totalSale = response.data;
+          this.series = [
+            { data: this.totalSale.map(({ total_amount }) => total_amount) },
+          ];
+          console.log(this.series);
+          this.chartOptions = {
+            ...this.chartOptions,
+            ...{
+              xaxis: {
+                categories: this.totalSale.map(({ doc_date }) => doc_date),
+              },
+            },
+          };
+          console.log(this.chartOptions.xaxis);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    this.getTotalSale();
+  },
 };
 </script>

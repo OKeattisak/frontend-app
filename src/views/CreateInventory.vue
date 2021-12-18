@@ -18,7 +18,6 @@
                     outlined
                     required
                   ></v-combobox>
-
                 </div>
               </v-col>
               <v-col cols="12" md="9">
@@ -81,24 +80,17 @@
             <v-simple-table>
               <template v-slot:default>
                 <thead>
-                <tr>
-                  <th class="text-left">
-                    Name
-                  </th>
-                  <th class="text-left">
-                    Calories
-                  </th>
-                  <th class="text-left">
-                    Calories
-                  </th>
-                </tr>
+                  <tr>
+                    <th class="text-left">Name</th>
+                    <th class="text-left">Calories</th>
+                    <th class="text-left">Calories</th>
+                  </tr>
                 </thead>
                 <tbody>
-                <tr
-                >
-                  <td>XX</td>
-                  <td>XX</td>
-                </tr>
+                  <tr>
+                    <td>XX</td>
+                    <td>XX</td>
+                  </tr>
                 </tbody>
               </template>
             </v-simple-table>
@@ -128,22 +120,22 @@ export default {
     unitType: [
       {
         id: 0,
-        name: "หน่วยนับเดียว"
+        name: "หน่วยนับเดียว",
       },
       {
         id: 1,
-        name: "หลายหน่วยนับ"
-      }
+        name: "หลายหน่วยนับ",
+      },
     ],
     vatType: [
       {
         id: 0,
-        name: "ภาษีมูลค่าเพิ่ม"
+        name: "ภาษีมูลค่าเพิ่ม",
       },
       {
         id: 1,
-        name: "สินค้ายกเว้นภาษี"
-      }
+        name: "สินค้ายกเว้นภาษี",
+      },
     ],
     unit: [],
     productCodeFormat: [],
@@ -154,10 +146,8 @@ export default {
       tax_type: "",
       unit_type: "",
       unit_cost: "",
-      unit_standard: ""
-    }
-
-
+      unit_standard: "",
+    },
   }),
   methods: {
     getProductCode() {
@@ -172,10 +162,10 @@ export default {
       if (this.valid) {
         axios
           .post("inventories", this.formData)
-          .then(response => {
+          .then((response) => {
             console.log(response.data);
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       }
@@ -201,12 +191,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    }
+    },
   },
   mounted() {
     this.getProductCodeFormat();
     this.getUnit();
-  }
+  },
 };
 </script>
 
