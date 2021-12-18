@@ -1,51 +1,52 @@
 <template>
   <div class="Home">
     <v-row>
-      <v-col>
+      <v-col cols="12" lg="6">
         <v-card class="pa-2" outlined tile>
           <apexchart
             type="area"
+            height="350"
+            width="100%"
             :options="chartOptions"
             :series="series"
           ></apexchart>
         </v-card>
       </v-col>
-      <v-col>
+      <v-col cols="12" lg="6">
         <v-card class="pa-2" outlined tile>
           <apexchart
             type="bar"
+            height="350"
+            width="100%"
             :options="chartOptions"
             :series="series"
           ></apexchart>
         </v-card>
       </v-col>
     </v-row>
-    <br />
     <v-row>
-      <v-col>
+      <v-col cols="12" lg="6">
         <v-card outlined tile>
-          <v-card-title>สินค้าขายดี</v-card-title>
+          <v-card-title>5 อันดับสินค้าขายดี</v-card-title>
           <v-card-text>
             <v-simple-table>
               <template v-slot:default>
                 <thead>
                   <tr>
-                    <th class="text-left">Date</th>
-                    <th class="text-left">Total</th>
+                    <th class="text-left">รหัสสินค้า</th>
+                    <th class="text-left">สินค้า</th>
+                    <th class="text-left">หน่วยนับ</th>
+                    <th class="text-left">จำนวน</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="item in totalSale" :key="item.name">
-                    <td>{{ item.doc_date }}</td>
-                    <td>{{ item.total_amount }}</td>
+                  <tr v-for="item in topSale" :key="item.item_code">
+                    <td>{{ item.item_code }}</td>
+                    <td>{{ item.item_name }}</td>
+                    <td>{{ item.unit_code }}</td>
+                    <td>{{ item.qty }}</td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <td>Grand Total</td>
-                    <td>{{ grandTotal | adjustdecimal }}</td>
-                  </tr>
-                </tfoot>
               </template>
             </v-simple-table>
           </v-card-text>
@@ -53,7 +54,7 @@
       </v-col>
     </v-row>
 
-    <br />
+    <!-- <br /> -->
     <!-- <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -87,6 +88,7 @@ export default {
   data() {
     return {
       totalSale: [],
+      topSale: [],
       chartOptions: {
         title: {
           text: "ยอดขายสินค้า",
@@ -126,6 +128,17 @@ export default {
     },
   },
   methods: {
+    async getTopSale() {
+      await axios
+        .get("trans/topsale")
+        .then((response) => {
+          console.log(response.data);
+          this.topSale = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     async getTotalSale() {
       await axios
         .get("trans/totalsale")
@@ -153,6 +166,7 @@ export default {
   },
   mounted() {
     this.getTotalSale();
+    this.getTopSale();
   },
 };
 </script>
