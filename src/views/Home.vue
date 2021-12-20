@@ -31,7 +31,7 @@
       </v-col>
       <v-col sm="6" md="6" cols="12">
         <v-card elevation="2">
-          <v-card-title>Statistics Card</v-card-title>
+          <v-card-title>สถิติ</v-card-title>
           <v-card-subtitle>
             <span class="font-weight-semibold text--primary me-1"
               >Total 48.5% growth</span
@@ -68,7 +68,7 @@
                   </span>
                 </v-avatar>
                 <div class="ms-3">
-                  <p class="mb-0">Customers</p>
+                  <p class="mb-0">ลูกค้า</p>
                   <h3 class="text-xl font-weight-bold">12.5k</h3>
                 </div>
               </v-col>
@@ -84,7 +84,7 @@
                   </span>
                 </v-avatar>
                 <div class="ms-3">
-                  <p class="mb-0">Products</p>
+                  <p class="mb-0">สินค้า</p>
                   <h3 class="text-xl font-weight-bold">1.54k</h3>
                 </div>
               </v-col>
@@ -190,7 +190,7 @@ export default {
           fontFamily: '"Sarabun", sans-serif',
           type: "pie",
         },
-        labels: ["Apple", "Mango", "Orange", "Watermelon"],
+        labels: ["ขนม", "น้ำดื่ม", "เครื่องดื่ม", "อาหาร"],
       },
       series2: [44, 55, 41, 17],
     };
